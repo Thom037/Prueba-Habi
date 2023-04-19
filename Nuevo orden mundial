@@ -45,14 +45,9 @@ if longitud_S <= 1000: # Valor máximo de longitud de la cadena
         # Primero impares luego pares en números
 
             # Ordena primero impares luego pares por medio de parámetro lambda
-            
             num_lista = list(map(int, numeros)) # Cadena -> Lista de números enteros
-         
-            impares_pares = lambda num_lista: ((num_lista % 2) ^ 1, num_lista) # Tupla de valores, inicialmente 0 si es par, 1 si es impar, luego, el propio número.
-        
-            
-            num_lista_ord = sorted(num_lista, key=impares_pares) # Lista -> Lista ordenada
-            
+            impares_pares = lambda num_lista: ((num_lista % 2) ^ 1, num_lista) # Tupla de valores, inicialmente 1 si es par, 0 si es impar (reversión para leer inicialmente impares), luego, el propio número.
+            num_lista_ord = sorted(num_lista, key=impares_pares) # Lista -> Lista ordenada de acuerdo a Key
             numeros_ord = ''.join(map(str, num_lista_ord)) # Lista -> Cadena
 
 # Impresión de resultado, cadena organizada
