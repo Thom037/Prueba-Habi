@@ -1,0 +1,74 @@
+# Python
+# Prueba técnica Habi 2023
+# Thomas Morales Varón - Ingeniería Electrónica
+# Punto 1° -> Nuevo orden mundial
+
+
+# Obtención por escritorio de la cadena S
+S = input("Por favor, ingresa la cadena de caracteres alfanuméricos: ")
+
+# Comprobaciones de la cadena S
+# 1. ¿Tiene la longitud adecuada?
+longitud_S = len(S)
+
+if longitud_S <= 1000: # Valor máximo de longitud de la cadena
+        print("La longitud de la cadena ingresada es correcta")
+        
+        # Variables a usar
+        
+        minusculas = ""     # Variable letras minusculas contenidas en S
+        mayusculas = ""     # Variable letras mayusculas contenidas en S
+        numeros    = ""     # Variable números contenidas en S
+        
+        # Recorrido de la cadena S y almacenamiento en variables
+
+        for x in S: 
+            if x.islower():  #Identificación de letras minúsculas
+                minusculas += x  #Almacenamiento de letras minusculas en variable
+            elif x.isupper():#Identificación de letras mayúsculas
+                mayusculas  += x  #Almacenamiento de letras mayúsculas en variable
+            else:            #Números por defecto
+                numeros += x     #Almacenamiento de números en variable
+                
+        # Ordenamiento interno de las variables
+
+            # Orden alfabético para letras con método Sorted
+            # Se vuelven las cadenas listas, se ordenan y luego vuelven a ser cadenas
+            minu_lista = list(minusculas) # Cadena -> Lista
+            minu_lista_ord = sorted(minu_lista) # Lista -> Lista ordenada
+            minusculas_ord = ''.join(minu_lista_ord) # Lista -> Cadena
+        
+            mayu_lista = list(mayusculas) # Cadena -> Lista
+            mayu_lista_ord = sorted(mayu_lista) # Lista -> Lista ordenada
+            mayusculas_ord = ''.join(mayu_lista_ord) # Lista -> Cadena
+
+        # Primero impares luego pares en números
+
+            # Ordena primero impares luego pares por medio de parámetro lambda
+            
+            num_lista = list(map(int, numeros)) # Cadena -> Lista de números enteros
+         
+            impares_pares = lambda num_lista: ((num_lista % 2) ^ 1, num_lista) # Tupla de valores, inicialmente 0 si es par, 1 si es impar, luego, el propio número.
+        
+            
+            num_lista_ord = sorted(num_lista, key=impares_pares) # Lista -> Lista ordenada
+            
+            numeros_ord = ''.join(map(str, num_lista_ord)) # Lista -> Cadena
+
+# Impresión de resultado, cadena organizada
+            S_ord = minusculas_ord + mayusculas_ord + numeros_ord
+        
+        print(S_ord)
+        
+            
+else:
+     print("La longitud de la cadena ingresada es mayor a la esperada")
+     
+
+"""
+Pruebas realizadas:
+Sorting1234                                  -> ginortS1324
+52sdFFGgfh594                                -> dfghsFFG55924
+659844136211465532312632322323               -> 111133333335559222222244466668
+djhjdAHDGHSGDjfsjfjhjs31545s12s1gsdgfbdFSDGS -> bddddfffgghhjjjjjjsssssADDDFGGGHHSSS11135524
+"""
