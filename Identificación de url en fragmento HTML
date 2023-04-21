@@ -1,4 +1,36 @@
--- Python
--- Prueba técnica Habi 2023
--- Thomas Morales Varón - Ingeniería Electrónica
--- Punto 3° 
+# Python
+# Prueba técnica Habi 2023
+# Thomas Morales Varón - Ingeniería Electrónica
+# Punto 3° -> Identificador de dominios en fragmento HTML
+
+"""Se proporciona al programa el fragmento de HTML por medio de un archivo de texto, en este caso
+llamado FRAGMENTO"""
+
+import re #Librería expresiones regulares
+
+with open ("fragmento.txt",'r') as archivo:  #Abre el archivo donde se encuentra el fragmento
+    filas = archivo.readlines() #Lee línea a linea el archivo
+
+N=filas[0] #Siempre el N estará en la primera fila del fragmento
+N = int(N) #N se tomará como un número entero
+
+#Encuentran los dominios con prefijos del fragmento por medio de expresiones regulares
+contenido_filas = []
+contenido_filas = "".join(filas) #Se concatenan todas las filas del fragmento
+dominio_con_prefijo = []
+#El patrón debe reconocer cuando comience con "//", luego contenga uno o más grupos de caracteres alfanuméricos seguidos de un punto
+#seguidos de otro grupo de caracteres alfanuméricos. 
+dominio_con_prefijo = set(re.findall(r"(?<=//)(?:\w+\.)+\w+", contenido_filas)) #Se usa set para volverlo un conjunto y no se repitan
+
+#Encuentran exclusivamente los dominios 
+dominios_sin_prefijo = set()
+
+for dominio in dominio_con_prefijo:
+    dominio_modificado = re.sub(r"^w{0,3}\.", "", dominio) #Recorre todos los valores de Dominios y le quita las letras "www"
+    dominios_sin_prefijo.add(dominio_modificado) #Se pasan los dominios modificados a la otra variable global
+
+#Organizarlos  en orden lexicográfico
+
+dominios_str_ordenados = ";".join(sorted(dominios_sin_prefijo)) #Se ordenan y vuelve cadena nuevamente
+
+print(dominios_str_ordenados) 
